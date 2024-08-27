@@ -6,6 +6,51 @@ namespace Shop.Controllers
 {
     public class HomeController : Controller
     {
+
+        //Public Method 
+        //can not be  static
+        //can not be overload
+
+        public string ShowMsg()
+        {
+            return "Hello World";
+        }
+        //Actions 
+        /*
+         *String ----> ContentResult
+         *view ------> ViewResult
+         *Json ------> JSonResult
+         *File -------> FileResult
+         *NotFound ---> NotFoundResult
+         *Unauthorized -> UnAuthoriResult 
+        */
+
+        public ViewResult getView()
+        {
+            ViewResult result=new ViewResult();
+            result.ViewName = "View1";
+            return result;
+        }
+
+        public IActionResult ShowMix(int x)
+        {
+            if (x %2 ==0)
+            {
+                //ViewResult result = new ViewResult();
+                //result.ViewName="View1";
+                //return result;
+                return View("View1");
+            }
+            else
+            {
+                //ContentResult result = new ContentResult();
+                //result.Content = "Hello World";
+                //return result;
+                return Content("Hello World");
+            }
+        }
+
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)

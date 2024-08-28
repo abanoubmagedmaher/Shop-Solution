@@ -3,54 +3,54 @@
     public class ProductsBL
     {
         #region Static List
-        List<Products> product;
+        List<Products> Product;
         public ProductsBL()
         {
-            product = new List<Products>();
-            product.Add(
+            Product = new List<Products>();
+            Product.Add(
                 new Products()
                 {
                     Id = 1,
                     Name = "GoldProduct001",
-                    ImagegUrl = "1.png",
+                    ImagegUrl = "1.JPG",
                     price = 15000
 
                 }
                 );
-            product.Add(
+            Product.Add(
                 new Products()
                 {
                     Id = 2,
                     Name = "GoldProduct002",
-                    ImagegUrl = "2.png",
+                    ImagegUrl = "2.JPG",
                     price = 25000
                 }
                 );
-            product.Add(
+            Product.Add(
             new Products()
             {
                 Id = 3,
                 Name = "GoldProduct003",
-                ImagegUrl = "3.png",
+                ImagegUrl = "3.JPG",
                 price = 20000
             }
             );
-            product.Add(
+            Product.Add(
 new Products()
 {
     Id = 4,
     Name = "GoldProduct004",
-    ImagegUrl = "4.png",
+    ImagegUrl = "4.JPG",
     price = 30000
 }
 );
 
-            product.Add(
+            Product.Add(
 new Products()
 {
     Id = 5,
     Name = "GoldProduct005",
-    ImagegUrl = "5.png",
+    ImagegUrl = "5.JPG",
     price = 35000
 }
 );
@@ -60,11 +60,11 @@ new Products()
 
         public List<Products> GetAll()
         {
-            return product;
+            return Product;
         }
         public Products GetById(int id)
         {
-            return product.FirstOrDefault(p => p.Id == id);
+            return Product.FirstOrDefault(p => p.Id == id);
         }
     }
 }

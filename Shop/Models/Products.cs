@@ -34,7 +34,7 @@ namespace Shop.Models
 
         public decimal? discounted { get; set; }
 
-        public string ProductCompany { get; set; }
+        public string? ProductCompany { get; set; }
 
 
         #endregion

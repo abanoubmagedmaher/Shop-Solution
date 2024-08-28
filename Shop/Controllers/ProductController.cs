@@ -13,10 +13,14 @@ namespace Shop.Controllers
             List<Products> ProductLstModel = productsBL.GetAll();
             return View("GetAll",ProductLstModel);
       }
-        public IActionResult GetById(int id) {
+        public IActionResult Details(int id) {
             ProductsBL productsBL = new ProductsBL();
-            var product = productsBL.GetById(id);
-            return View("GetById", product);
+            Products product = productsBL.GetById(id);
+            if (product== null)
+            {
+                View("NotFound");
+            }
+            return View("Details", product);
         }
 
 

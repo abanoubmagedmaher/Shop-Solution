@@ -37,7 +37,7 @@ namespace Shop.Controllers
             //Decleare View model
             EmpDeptColorTempMsgBranchViewModel EmpVM = new EmpDeptColorTempMsgBranchViewModel();
             EmpVM.EmpName = EmpModel.Name;
-            EmpVM.Deptname = EmpModel.Department.Name;
+            EmpVM.DeptName = EmpModel.Department.Name;
             EmpVM.Color = "red";
             EmpVM.Temp = 50;
             EmpVM.Branches = branches;

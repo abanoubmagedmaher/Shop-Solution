@@ -1,0 +1,24 @@
+﻿<h1>Hello World From View1</h1>
+<style>
+h1{
+    color:red
+}
+</style>
+@{
+    int x=10;
+int y=20;
+int z =x+y;
+}
+<h2>x=@x</h2>
+<h2>y=@y</h2>
+<h2>Z = @z</h2>
+@if(x>y){
+    <h2>X gretter Than y</h2>
+}
+else{
+    <h2>X Less Than Y</h2>
+}
+@for(int i =0; i<10;i++){
+    <li>@i</li>
+}
+

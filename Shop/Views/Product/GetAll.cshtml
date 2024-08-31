@@ -1,0 +1,23 @@
+﻿@model List<Products>
+ <table class="table table-bordered table-hover">
+
+    <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">price</th>
+      <th scope="col">ImagegUrl</th>
+    </tr>
+  </thead>
+     @foreach(var product in Model){
+        
+         <tr>
+            <td>@product.Id</td>
+            <td>@product.Name</td>
+             <td>@product.price</td>
+            <td>
+               <img style="width:80px;" src="~/images/@product.ImagegUrl"/></td>
+           
+        </tr>
+    }
+ </table>

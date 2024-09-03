@@ -25,6 +25,7 @@ namespace Shop.Controllers
         #endregion
 
         #region Save Department into db
+        [HttpPost]
         public IActionResult SaveAdd(Department newDeptObj)
         {
             try

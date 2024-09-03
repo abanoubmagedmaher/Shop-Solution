@@ -45,5 +45,57 @@ namespace Shop.Controllers
             }
         }
         #endregion
+
+        #region EditDepartmentById
+
+        public IActionResult EditDepartmentById(int id)
+        {
+            var Dept = context.Department.Include("Employees").FirstOrDefault(d => d.Id == id);
+            if (Dept != null)
+            {
+                return View("EditDepartmentById", Dept);
+
+            }
+            return View("NotFound");
+        }
+
+        public IActionResult SaveEdit(Department DeptFromRequest)
+        {
+            try
+            {
+                if (DeptFromRequest != null)
+                {
+                    var dept = context.Department.
+                         FirstOrDefault(d => d.Id == DeptFromRequest.Id);
+                    if (dept != null)
+                    {
+                        dept.Name = DeptFromRequest.Name;
+                        dept.ManagerName = DeptFromRequest.ManagerName;
+                        try
+                        {
+
+                            context.SaveChanges();
+
+                        }
+                        catch (Exception)
+                        {
+
+                            return View("EditDepartmentById", DeptFromRequest);
+                        }
+                        return RedirectToAction("Index");
+                    }
+                }
+
+                return View("EditDepartmentById", DeptFromRequest);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        #endregion
+
+
     }
 }

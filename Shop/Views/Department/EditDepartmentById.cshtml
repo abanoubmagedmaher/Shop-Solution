@@ -1,0 +1,22 @@
+﻿@model Department
+@{
+    ViewData["Title"] = "EditDepartmentById";
+}
+
+<h1>EditDepartmentById</h1>
+<form action="/Department/SaveEdit/@Model.Id" method="post">
+    <div>
+        <label>Department Name</label>
+        <input id="Name" type="text"  name="Name" value="@Model.Name" class="form form-control">
+   </div>
+   <div>
+        <label>Department Manger Name</label>
+        <input id="ManagerName" type="text" name="ManagerName" value="@Model.ManagerName" class="form form-control"/>
+    </div>
+
+        <input type="submit" value="Update" class="btn btn-primary"/>
+
+
+</form>
+<a href="/Department/Index" class="btn btn-danger" >Cancel</a>
+

@@ -1,0 +1,75 @@
+﻿@model Shop.ViewModel.EmpWithDeptListViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+<form method="post" action="/Employee/SaveEdit/@Model.Id">
+	<input  type="submit" class="btn btn-square btn-success" value="Update">
+	<a href="/Employee/Index" class="btn btn-square btn-danger p-2 ">Cancel</a>
+
+    <div class="form-group m-2">
+		<label class="form-label">Name</label>
+		<input type="text" name="Name" value="@Model.Name" class="form-control"     >
+	</div>
+
+	<div class="form-group">
+		<label class="form-label">Age</label>
+		<input type="number" name="Age" value="@Model.Age" class="form-control"    >
+	</div>
+
+	 <div class="form-group">
+		<label class="form-label">Address</label>
+		<input type="text" name="Address" value="@Model.Address" class="form-control"    >
+	</div>
+
+	<div class="form-group">
+		<label class="form-label">Mobile</label>
+		<input type="number" name="Mobile" value="@Model.Mobile" class="form-control"    >
+	</div>
+
+    <div class="form-group">
+		<label class="form-label">WhatsAppNumber</label>
+		<input type="number" name="WhatsAppNumber" value="@Model.WhatsAppNumber" class="form-control"    >
+	</div>
+
+    <div class="form-group">
+		<label class="form-label">Email</label>
+		<input type="email" name="Email" value="@Model.Email" class="form-control"    >
+	</div>
+
+	<div class="form-group">
+		<label class="form-label">Sallary</label>
+		<input type="number" name="Sallary" value="@Model.Sallary" class="form-control"    >
+	</div>
+
+	<div class="form-group">
+		<label class="form-label">JobTitle</label>
+		<input type="text" name="JobTitle" value="@Model.JobTitle"  class="form-control"    >
+      </div >
+	<div class="form-group">
+		<select  name="DepartmentID" class="form-select" aria-label="Default select example">
+			 @foreach(var deptItem in Model.DeptLst)
+			 {
+				 if(Model.DepartmentID==deptItem.Id)
+				 {
+					 	 <option value="@deptItem.Id" selected >@deptItem.Name</option>
+				 }else
+				 {
+					<option value="@deptItem.Id" >@deptItem.Name</option>
+				 }
+
+			 }
+		</select>
+	</div>
+
+    <div class="form-group">
+		<label class="form-label">ImageURL</label>
+		<input type="text" name="ImageURL" value="@Model.ImageURL" class="form-control"    >
+	</div>
+
+
+
+	</div>
+	</div>
+	</div>
+	</div>
+</form>

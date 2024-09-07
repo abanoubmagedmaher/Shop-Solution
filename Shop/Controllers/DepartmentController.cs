@@ -8,14 +8,16 @@ namespace Shop.Controllers
     public class DepartmentController : Controller
     {
         ShopContext context= new ShopContext();
+        #region Index
         public IActionResult Index()
         {
             //load Employee Count using include 
-            List<Department> departmentLst=context.Department
+            List<Department> departmentLst = context.Department
                .Include(d => d.Employees).ToList();
-           // List<Department> departmentLst=context.Department.ToList();
-            return View("Index",departmentLst);
-        }
+            // List<Department> departmentLst=context.Department.ToList();
+            return View("Index", departmentLst);
+        } 
+        #endregion
 
         #region Add Department Vieww
         public IActionResult AddDept()

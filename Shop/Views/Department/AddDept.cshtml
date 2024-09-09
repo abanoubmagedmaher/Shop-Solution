@@ -5,6 +5,8 @@
 
 <h1>AddDept</h1>
 <form method="post" action="/Department/SaveAdd">
+        <input type="submit" value="Create" class="btn btn-primary"/>
+        <a href="/Department/Index" class="btn btn-danger" >Cancel</a>
     <div>
         <label>Name</label>
         <input id="Name" value="@Model?.Name" type="text" name="Name" class="form form-control"/>
@@ -15,9 +17,8 @@
         <input id="ManagerName"  value="@Model?.ManagerName" type="text" name="ManagerName" class="form form-control"/>
     </div>
 
-    <input type="submit" value="Create" class="btn btn-primary"/>
 
 
 </form>
 
-<a href="/Department/Index" class="btn btn-danger" >Cancel</a>
+

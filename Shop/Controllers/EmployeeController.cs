@@ -114,6 +114,30 @@ namespace Shop.Controllers
 
         #endregion
 
+        #region Add New Employee
+        [HttpGet]
+        public IActionResult AddEmployee()
+        {
+            ViewData["DeptList"] = dbContext.Department.ToList();
+            return View("AddEmployee");
+        }
+
+        [HttpPost]
+        public IActionResult SaveNew(Employee emp)
+        {
+           
+                if (emp != null && emp.Sallary >= 6000 && emp.DepartmentID !=0)
+                {
+                    var AddEmp = dbContext.Employee.Add(emp);
+                    dbContext.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+          
+            ViewBag.DeptList = dbContext.Department.ToList();
+            return View("AddEmployee", emp);
+            
+        }
+        #endregion
 
 
 

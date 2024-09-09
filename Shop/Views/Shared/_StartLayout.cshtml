@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div style="height:100px;background-color:red;font-size:40px">
+        Header
+         <div style="background-color:blue;"> 
+             @RenderSection("HeadSeaction",false)
+         </div>
+
+    </div>
+
+    <div style="background-color:blue;font-size:40px">
+        @RenderBody()
+    </div>
+
+    <div style="height:100px;background-color:red;font-size:50px">
+        Footer
+         <div style="background-color:blue;"> 
+             @RenderSection("FooterSeaction",false)
+         </div>
+    </div>
+</body>
+</html>

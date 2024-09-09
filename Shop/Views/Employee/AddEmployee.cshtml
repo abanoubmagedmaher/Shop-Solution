@@ -1,0 +1,58 @@
+﻿@model Employee
+@{
+    ViewData["Title"] = "AddEmployee";
+    SelectList  deptOptons=new SelectList(ViewBag.DeptList,"Id","Name");
+}
+<form method="post" asp-action="SaveNew" asp-controller="Employee">
+        <input type="submit" value="Save" class="btn btn-success" />
+        <a href="/Employee/Index" class="btn btn-danger" >Cancel</a>
+
+    <div>
+       <label>Name</label>
+       <input class="form form-control" asp-for="Name" requierd />
+    </div>
+
+    <div>
+       <label>Salary</label>
+       <input class="form form-control" asp-for="Sallary" requierd/>
+    </div>
+
+    <div>
+       <label>Address</label>
+       <input class="form form-control" asp-for="Address" requierd/>
+    </div>
+
+    <div>
+       <label>JobTitle</label>
+       <input class="form form-control" asp-for="JobTitle" />
+    </div>
+     <div>
+       <label>Email</label>
+       <input type="email" class="form form-control" asp-for="Email" />
+    </div>
+    <div>
+       <label>WhatsAppNumber</label>
+       <input  class="form form-control" asp-for="WhatsAppNumber" />
+    </div>
+        <div>
+       <label>Mobile</label>
+       <input  class="form form-control" asp-for="Mobile" />
+    </div>
+          <div>
+       <label>Age</label>
+       <input  class="form form-control" asp-for="Age" />
+    </div>
+    <div>
+       <label>ImageURL</label>
+       <input class="form form-control" asp-for="ImageURL" type="file" />
+    </div>
+   <div>
+       <label>DepartmentID</label>
+       <select class="form form-control" asp-for="DepartmentID" asp-items="deptOptons">
+        <option value="0">-Select Department-</option>
+       </select>
+    </div>
+
+</form>
+
+

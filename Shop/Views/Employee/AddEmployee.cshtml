@@ -6,51 +6,70 @@
 <form method="post" asp-action="SaveNew" asp-controller="Employee">
         <input type="submit" value="Save" class="btn btn-success" />
         <a href="/Employee/Index" class="btn btn-danger" >Cancel</a>
-
+      @*   <div asp-validation-summary="All"  class="text-danger" ></div> *@
     <div>
        <label>Name</label>
-       <input class="form form-control" asp-for="Name" requierd />
+       <input class="form form-control" asp-for="Name"  />
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
     <div>
        <label>Salary</label>
-       <input class="form form-control" asp-for="Sallary" requierd/>
+       <input class="form form-control" asp-for="Sallary" />
+       <span asp-validation-for="Sallary" class="text-danger"></span>
+
     </div>
 
     <div>
        <label>Address</label>
-       <input class="form form-control" asp-for="Address" requierd/>
+       <input class="form form-control" asp-for="Address" />
+              <span asp-validation-for="Address" class="text-danger"></span>
+
     </div>
 
     <div>
        <label>JobTitle</label>
        <input class="form form-control" asp-for="JobTitle" />
+              <span asp-validation-for="JobTitle" class="text-danger"></span>
+
     </div>
      <div>
        <label>Email</label>
        <input type="email" class="form form-control" asp-for="Email" />
+              <span asp-validation-for="Email" class="text-danger"></span>
+
     </div>
     <div>
        <label>WhatsAppNumber</label>
        <input  class="form form-control" asp-for="WhatsAppNumber" />
+              <span asp-validation-for="WhatsAppNumber" class="text-danger"></span>
+
     </div>
         <div>
        <label>Mobile</label>
        <input  class="form form-control" asp-for="Mobile" />
+              <span asp-validation-for="Mobile" class="text-danger"></span>
+
     </div>
           <div>
        <label>Age</label>
        <input  class="form form-control" asp-for="Age" />
+       <span asp-validation-for="Age" class="text-danger"></span>
+
     </div>
     <div>
        <label>ImageURL</label>
        <input class="form form-control" asp-for="ImageURL" type="file" />
+              <span asp-validation-for="ImageURL" class="text-danger"></span>
+
     </div>
    <div>
        <label>DepartmentID</label>
        <select class="form form-control" asp-for="DepartmentID" asp-items="deptOptons">
         <option value="0">-Select Department-</option>
        </select>
+              <span asp-validation-for="DepartmentID" class="text-danger"></span>
+
     </div>
 
 </form>

@@ -125,18 +125,24 @@ namespace Shop.Controllers
         [HttpPost]
         public IActionResult SaveNew(Employee emp)
         {
-           
-                if (emp != null && emp.Sallary >= 6000 && emp.DepartmentID !=0)
-                {
-                    var AddEmp = dbContext.Employee.Add(emp);
-                    dbContext.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-          
+            if (ModelState.IsValid)
+            {
+                var AddEmp = dbContext.Employee.Add(emp);
+                dbContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
             ViewBag.DeptList = dbContext.Department.ToList();
             return View("AddEmployee", emp);
             
         }
+        #endregion
+
+        #region DeleteEmployee
+
+        #endregion
+        #region Search by Name or Mobile or Number or address or .....
+
         #endregion
 
 

@@ -30,11 +30,10 @@ namespace Shop.Models
         [Required(ErrorMessage = "Employee JobTitle is required")]
      
         public string JobTitle { get; set; }
-        [Required(ErrorMessage = "Employee Name is required")]
+        [Required(ErrorMessage = "Employee ImageURL is required")]
         [RegularExpression(@"\w+\.(jpg|jpeg|png|gif|bmp|tiff|svg|webp|heic|JPG|JPEG|PNG|GIF|BMP|TIFF|SVG|WEBP|HEIC)$")]
         public string ImageURL { get; set; }
-        [Required(ErrorMessage = "Employee ImageURL is required")]
-
+        [Required(ErrorMessage = "Employee Department  is required")]
 
         //ForeignKey and List (M)
         [ForeignKey("Department")]

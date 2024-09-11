@@ -125,12 +125,19 @@ namespace Shop.Controllers
         [HttpPost]
         public IActionResult SaveNew(Employee emp)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && emp.DepartmentID != 0)
             {
+                // Custom Validation 
+
                 var AddEmp = dbContext.Employee.Add(emp);
                 dbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
+            else
+            {
+                ModelState.AddModelError("DepartmentID", "Must Select Department ");
+            }
+           
 
             ViewBag.DeptList = dbContext.Department.ToList();
             return View("AddEmployee", emp);

@@ -6,8 +6,8 @@
 <form method="post" asp-action="SaveNew" asp-controller="Employee">
         <input type="submit" value="Save" class="btn btn-success" />
         <a href="/Employee/Index" class="btn btn-danger" >Cancel</a>
-      @*   <div asp-validation-summary="All"  class="text-danger" ></div> *@
-    <div>
+@*         <div asp-validation-summary="All"  class="text-danger" ></div>*@ 
+        <div>
        <label>Name</label>
        <input class="form form-control" asp-for="Name"  />
         <span asp-validation-for="Name" class="text-danger"></span>
@@ -66,9 +66,10 @@
    <div>
        <label>DepartmentID</label>
        <select class="form form-control" asp-for="DepartmentID" asp-items="deptOptons">
-        <option value="0">-Select Department-</option>
+            <option value="0">-Select Department-</option>
        </select>
-              <span asp-validation-for="DepartmentID" class="text-danger"></span>
+      <span asp-validation-for="DepartmentID" class="text-danger"></span>
+
 
     </div>
 

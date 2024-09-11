@@ -10,6 +10,7 @@ namespace Shop.Models
         [Required(ErrorMessage = "Employee Name is required")]
         [MaxLength(50)]
         [MinLength(2,ErrorMessage ="Must be greater than Three Character")]
+        [UniqueName]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Employee Age is required")]

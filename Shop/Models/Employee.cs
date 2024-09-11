@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Serialization;
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,7 +11,10 @@ namespace Shop.Models
         [Required(ErrorMessage = "Employee Name is required")]
         [MaxLength(50)]
         [MinLength(2,ErrorMessage ="Must be greater than Three Character")]
-        [UniqueName]
+        // [UniqueName] custom validation class 
+        [Remote(action:"CheckUniqueEmpName",controller:"Employee",
+            AdditionalFields = "Mobile",
+            ErrorMessage ="Name Must be Unique")]// Using Ajex Call 
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Employee Age is required")]

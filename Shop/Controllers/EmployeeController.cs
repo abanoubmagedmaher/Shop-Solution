@@ -148,10 +148,24 @@ namespace Shop.Controllers
         #region DeleteEmployee
 
         #endregion
+
         #region Search by Name or Mobile or Number or address or .....
 
         #endregion
 
+        #region ajex call Validation
+        public IActionResult CheckUniqueEmpName(string Name,string Mobile)
+        {
+            var checkEmpName= dbContext.Employee.FirstOrDefault(e => e.Name == Name & e.Mobile== Mobile);
+            if (checkEmpName != null)
+            {
+                return Json(false);
+            }
+            return Json(true);
+
+
+        }
+        #endregion
 
 
     }

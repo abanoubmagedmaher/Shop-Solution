@@ -6,6 +6,13 @@ namespace Shop
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            #region Add Session Settings and OverRide Some Futures!
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
+
+            #endregion
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
@@ -21,10 +28,11 @@ namespace Shop
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+         
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSession();
 
             app.MapControllerRoute(
                 name: "default",

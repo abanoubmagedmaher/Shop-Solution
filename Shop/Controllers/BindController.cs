@@ -12,9 +12,9 @@ namespace Shop.Controllers
        }
        //Model Binding
        public IActionResult TestDic(Dictionary<string,string> Phones,string name)
-        {
+       {
             return Content("OK");
-        }
+       }
 
         //object 
         public IActionResult testObj(Department deptObj)

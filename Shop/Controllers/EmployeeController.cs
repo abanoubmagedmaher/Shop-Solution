@@ -1,18 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shop.Models;
+using Shop.Repository;
 using Shop.ViewModel;
 
 namespace Shop.Controllers
 {
     public class EmployeeController : Controller
     {
-        ShopContext dbContext= new ShopContext();
+        //ShopContext dbContext= new ShopContext();
+        DepartmentRepository DepartmentRepo;
+        EmployeeRepository EmployeeRepo;
+        public EmployeeController()
+        {
+            DepartmentRepo=new DepartmentRepository();
+            EmployeeRepo=new EmployeeRepository();
+        }
         #region Details
         //public IActionResult Details(int id)
         //{
 
-        //    var EmpModel = dbContext.Employee.FirstOrDefault(x => x.Id == id);
+           //var EmpModel = EmployeeRepo.GetById();
 
         //    string Msg = $"Hello {EmpModel?.Name}";
         //    int Temp = 50;
@@ -53,20 +61,51 @@ namespace Shop.Controllers
 
         public IActionResult Index()
         {
-            var lst = dbContext.Employee.ToList();
+            var lst = EmployeeRepo.GetAll();
             return View("Index", lst);
         }
 
+        #endregion
+
+        #region Add New Employee
+        [HttpGet]
+        public IActionResult AddEmployee()
+        {
+            ViewData["DeptList"] = DepartmentRepo.GetAll();
+            return View("AddEmployee");
+        }
+
+        [HttpPost]
+        public IActionResult SaveNew(Employee emp)
+        {
+            if (ModelState.IsValid && emp.DepartmentID != 0)
+            {
+                // Custom Validation 
+
+                EmployeeRepo.Add(emp);
+                EmployeeRepo.Save();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ModelState.AddModelError("DepartmentID", "Must Select Department ");
+            }
+           
+
+            ViewBag.DeptList = DepartmentRepo.GetAll();
+            return View("AddEmployee", emp);
+            
+        }
         #endregion
 
         #region Edit
         // 1-) Handel btn-Edit-Link
         public IActionResult Edit(int id)
         {
-            var emp = dbContext.Employee.FirstOrDefault(e => e.Id==id);
-            if (emp != null) 
+            var emp = EmployeeRepo.GetById(id);
+            if (emp != null)
             {
-                List<Department> DepartmantList = dbContext.Department.ToList();
+                List<Department> DepartmantList = DepartmentRepo.GetAll();
                 //---------- Create View Model And Auto Mapper
                 EmpWithDeptListViewModel EmpViewModel = new EmpWithDeptListViewModel();
                 EmpViewModel.Id = emp.Id;
@@ -90,12 +129,12 @@ namespace Shop.Controllers
 
         // 2-) Save Edit
         [HttpPost]
-        public IActionResult SaveEdit(int id,EmpWithDeptListViewModel emp)
+        public IActionResult SaveEdit(int id, EmpWithDeptListViewModel emp)
         {
             if (emp.Name != null)
             {
 
-                var EmpFromdb = dbContext.Employee.FirstOrDefault(e => e.Id == emp.Id);
+                var EmpFromdb = EmployeeRepo.GetById(emp.Id);
                 EmpFromdb.Name = emp.Name;
                 EmpFromdb.Age = emp.Age;
                 EmpFromdb.Address = emp.Address;
@@ -103,46 +142,18 @@ namespace Shop.Controllers
                 EmpFromdb.WhatsAppNumber = emp.WhatsAppNumber;
                 EmpFromdb.ImageURL = emp.ImageURL;
                 EmpFromdb.DepartmentID = emp.DepartmentID;
-                dbContext.SaveChanges();
+                EmpFromdb.Id = emp.Id;
+                EmployeeRepo.Update(EmpFromdb);
+                EmployeeRepo.Save();
+                //dbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
-           
-            emp.DeptLst = dbContext.Department.ToList();
+
+            emp.DeptLst = DepartmentRepo.GetAll();
             return View("Edit", emp);
         }
 
 
-        #endregion
-
-        #region Add New Employee
-        [HttpGet]
-        public IActionResult AddEmployee()
-        {
-            ViewData["DeptList"] = dbContext.Department.ToList();
-            return View("AddEmployee");
-        }
-
-        [HttpPost]
-        public IActionResult SaveNew(Employee emp)
-        {
-            if (ModelState.IsValid && emp.DepartmentID != 0)
-            {
-                // Custom Validation 
-
-                var AddEmp = dbContext.Employee.Add(emp);
-                dbContext.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                ModelState.AddModelError("DepartmentID", "Must Select Department ");
-            }
-           
-
-            ViewBag.DeptList = dbContext.Department.ToList();
-            return View("AddEmployee", emp);
-            
-        }
         #endregion
 
         #region DeleteEmployee
@@ -156,7 +167,7 @@ namespace Shop.Controllers
         #region ajex call Validation
         public IActionResult CheckUniqueEmpName(string Name,string Mobile)
         {
-            var checkEmpName= dbContext.Employee.FirstOrDefault(e => e.Name == Name & e.Mobile== Mobile);
+            var checkEmpName= EmployeeRepo.GetAll().FirstOrDefault(e => e.Name == Name & e.Mobile== Mobile);
             if (checkEmpName != null)
             {
                 return Json(false);

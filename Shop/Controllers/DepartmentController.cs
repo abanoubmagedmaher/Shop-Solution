@@ -2,18 +2,24 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Shop.Models;
+using Shop.Repository;
 
 namespace Shop.Controllers
 {
     public class DepartmentController : Controller
     {
-        ShopContext context= new ShopContext();
+        //ShopContext context= new ShopContext();
+        DepartmentRepository DepartmentRepo;
+        public DepartmentController()
+        {
+            DepartmentRepo = new DepartmentRepository();
+        }
         #region Index
         public IActionResult Index()
         {
             //load Employee Count using include 
-            List<Department> departmentLst = context.Department
-               .Include(d => d.Employees).ToList();
+            List<Department> departmentLst = DepartmentRepo.GetAll("Employees");
+
             // List<Department> departmentLst=context.Department.ToList();
             return View("Index", departmentLst);
         } 
@@ -34,8 +40,9 @@ namespace Shop.Controllers
             {
                 if (!string.IsNullOrEmpty(newDeptObj.Name))
                 {
-                    context.Department.Add(newDeptObj);
-                    context.SaveChanges();
+                    DepartmentRepo.Add(newDeptObj);
+
+                    DepartmentRepo.Save();
                     return RedirectToAction("Index");
                 }
                 return View("AddDept",newDeptObj);
@@ -52,7 +59,7 @@ namespace Shop.Controllers
 
         public IActionResult EditDepartmentById(int id)
         {
-            var Dept = context.Department.Include("Employees").FirstOrDefault(d => d.Id == id);
+            var Dept = DepartmentRepo.GetById(id);
             if (Dept != null)
             {
                 return View("EditDepartmentById", Dept);
@@ -67,8 +74,7 @@ namespace Shop.Controllers
             {
                 if (DeptFromRequest != null)
                 {
-                    var dept = context.Department.
-                         FirstOrDefault(d => d.Id == DeptFromRequest.Id);
+                    var dept = DepartmentRepo.GetById(DeptFromRequest.Id);
                     if (dept != null)
                     {
                         dept.Name = DeptFromRequest.Name;
@@ -76,7 +82,7 @@ namespace Shop.Controllers
                         try
                         {
 
-                            context.SaveChanges();
+                            DepartmentRepo.Save();
 
                         }
                         catch (Exception)

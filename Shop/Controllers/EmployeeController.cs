@@ -114,7 +114,58 @@ namespace Shop.Controllers
 
         #endregion
 
+        #region Add New Employee
+        [HttpGet]
+        public IActionResult AddEmployee()
+        {
+            ViewData["DeptList"] = dbContext.Department.ToList();
+            return View("AddEmployee");
+        }
 
+        [HttpPost]
+        public IActionResult SaveNew(Employee emp)
+        {
+            if (ModelState.IsValid && emp.DepartmentID != 0)
+            {
+                // Custom Validation 
+
+                var AddEmp = dbContext.Employee.Add(emp);
+                dbContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ModelState.AddModelError("DepartmentID", "Must Select Department ");
+            }
+           
+
+            ViewBag.DeptList = dbContext.Department.ToList();
+            return View("AddEmployee", emp);
+            
+        }
+        #endregion
+
+        #region DeleteEmployee
+
+        #endregion
+
+        #region Search by Name or Mobile or Number or address or .....
+
+        #endregion
+
+        #region ajex call Validation
+        public IActionResult CheckUniqueEmpName(string Name,string Mobile)
+        {
+            var checkEmpName= dbContext.Employee.FirstOrDefault(e => e.Name == Name & e.Mobile== Mobile);
+            if (checkEmpName != null)
+            {
+                return Json(false);
+            }
+            return Json(true);
+
+
+        }
+        #endregion
 
 
     }

@@ -6,9 +6,9 @@ namespace Shop.Repository
     public class DepartmentRepository: IDepartmentRepository
     {
         ShopContext dbcontext;
-        public DepartmentRepository() 
+        public DepartmentRepository(ShopContext _context) 
         {
-            dbcontext =new ShopContext();   
+            dbcontext = _context;
         }
         public void Add(Department Dept)
         {

@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using Shop.Models;
 using Shop.Repository;
 
 namespace Shop
@@ -19,6 +21,10 @@ namespace Shop
             builder.Services.AddControllersWithViews();
 
             #region Custom Register Service (Dependance injection)
+            builder.Services.AddDbContext<ShopContext>(
+                options=>{
+                    options.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
+            });
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 

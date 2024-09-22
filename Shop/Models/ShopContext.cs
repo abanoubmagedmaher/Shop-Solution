@@ -14,6 +14,12 @@ namespace Shop.Models
         {
 
         }
+
+        public  ShopContext(DbContextOptions options) : base(options)
+        {
+
+        }
+       
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(

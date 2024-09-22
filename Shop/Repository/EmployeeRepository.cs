@@ -6,10 +6,9 @@ namespace Shop.Repository
     public class EmployeeRepository: IEmployeeRepository
     {
         ShopContext dbcontext;
-        public EmployeeRepository()
+        public EmployeeRepository(ShopContext _context)
         {
-            dbcontext = new ShopContext();
-
+            dbcontext = _context;
         }
 
         public void Add(Employee Emp)

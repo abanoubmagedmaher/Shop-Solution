@@ -3,7 +3,7 @@ using Shop.Models;
 
 namespace Shop.Repository
 {
-    public class EmployeeRepository
+    public class EmployeeRepository: IEmployeeRepository
     {
         ShopContext dbcontext;
         public EmployeeRepository()
@@ -30,7 +30,7 @@ namespace Shop.Repository
 
         public List<Employee> GetAll(string include="")
         {
-            return dbcontext.Employee.Include(include).ToList();
+            return dbcontext.Employee.ToList();
         }
         public Employee GetById(int id)
         {

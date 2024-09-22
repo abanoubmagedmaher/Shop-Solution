@@ -9,10 +9,10 @@ namespace Shop.Controllers
     public class DepartmentController : Controller
     {
         //ShopContext context= new ShopContext();
-        DepartmentRepository DepartmentRepo;
-        public DepartmentController()
+        IDepartmentRepository DepartmentRepo;
+        public DepartmentController(IDepartmentRepository deptRepo)
         {
-            DepartmentRepo = new DepartmentRepository();
+            DepartmentRepo = deptRepo;
         }
         #region Index
         public IActionResult Index()

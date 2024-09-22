@@ -3,7 +3,7 @@ using Shop.Models;
 
 namespace Shop.Repository
 {
-    public class DepartmentRepository
+    public class DepartmentRepository: IDepartmentRepository
     {
         ShopContext dbcontext;
         public DepartmentRepository() 

@@ -9,12 +9,12 @@ namespace Shop.Controllers
     public class EmployeeController : Controller
     {
         //ShopContext dbContext= new ShopContext();
-        DepartmentRepository DepartmentRepo;
-        EmployeeRepository EmployeeRepo;
-        public EmployeeController()
+        IDepartmentRepository DepartmentRepo;
+        IEmployeeRepository EmployeeRepo;
+        public EmployeeController(IDepartmentRepository departmentRepo,IEmployeeRepository employeeRepo)
         {
-            DepartmentRepo=new DepartmentRepository();
-            EmployeeRepo=new EmployeeRepository();
+            DepartmentRepo= departmentRepo;
+            EmployeeRepo= employeeRepo;
         }
         #region Details
         //public IActionResult Details(int id)

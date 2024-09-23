@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using Shop.Models;
+using Shop.Repository;
+
 namespace Shop
 {
     public class Program
@@ -6,8 +10,25 @@ namespace Shop
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            #region Add Session Settings and OverRide Some Futures!
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
+
+            #endregion
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            #region Custom Register Service (Dependance injection)
+            builder.Services.AddDbContext<ShopContext>(
+                options=>{
+                    options.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
+            });
+            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
+            #endregion
 
             var app = builder.Build();
 
@@ -21,10 +42,11 @@ namespace Shop
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+         
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSession();
 
             app.MapControllerRoute(
                 name: "default",

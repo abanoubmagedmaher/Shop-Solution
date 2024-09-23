@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Shop.Filters;
 using Shop.Models;
 using Shop.Repository;
 
@@ -17,8 +18,15 @@ namespace Shop
             });
 
             #endregion
-            // Add services to the container.
+
+            #region Add Service And Exception Filters For All Controller
+            // Add services to the container & Filters.
             builder.Services.AddControllersWithViews();
+            //builder.Services.AddControllersWithViews(options =>
+            //{
+            //    options.Filters.Add(new HandelErrorAttribute());
+            //}); 
+            #endregion
 
             #region Custom Register Service (Dependance injection)
             builder.Services.AddDbContext<ShopContext>(
@@ -29,6 +37,8 @@ namespace Shop
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
             #endregion
+
+
 
             var app = builder.Build();
 

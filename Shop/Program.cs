@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shop.Filters;
 using Shop.Models;
@@ -33,9 +34,20 @@ namespace Shop
                 options=>{
                     options.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
             });
+
+            //Register Identity With ShopDbContext
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(option =>
+            {
+                option.Password.RequiredLength = 4;
+                option.Password.RequireDigit = false;
+                option.Password.RequireNonAlphanumeric = false;
+                option.Password.RequireUppercase = false;
+            })
+            .AddEntityFrameworkStores<ShopContext>();
+
+            //Cutom Service Register
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-
             #endregion
 
 
@@ -55,6 +67,7 @@ namespace Shop
          
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseSession();
 

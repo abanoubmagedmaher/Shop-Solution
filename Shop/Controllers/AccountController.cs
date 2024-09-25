@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Shop.Models;
@@ -23,10 +24,11 @@ namespace Shop.Controllers
         {
 
             return View();
-        } 
+        }
         #endregion
 
         #region Register
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> SaveRegister(RegisterViewModel UserViewModel)
         {
@@ -42,10 +44,25 @@ namespace Shop.Controllers
                 IdentityResult result = await _userManger.CreateAsync(appUser, UserViewModel.Password);
                 if (result.Succeeded)
                 {
-                    //crete cookie
-                    await _signInManager.SignInAsync(appUser, false);
+                    #region Add Role
+                    var res= await _userManger.AddToRoleAsync(appUser,"Admin");
+                    if (res.Succeeded)
+                    {
+                        //crete cookie
+                        await _signInManager.SignInAsync(appUser, false);
+                        return RedirectToAction("Index", "Department");
+                    }
+                    else
+                    {
+                        foreach (var item in res.Errors)
+                        {
+                            ModelState.AddModelError("", item.Description);
+                        }
+                    }
+                    #endregion
+                   
                     //TODO Need Tocheck if Data Saved or not with Error or saved Without Error 
-                    return RedirectToAction("Index", "Department");
+                    
                 }
                 else
                 {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shop.Models;
 using Shop.Repository;
@@ -20,7 +21,7 @@ namespace Shop.Controllers
         //public IActionResult Details(int id)
         //{
 
-           //var EmpModel = EmployeeRepo.GetById();
+        //var EmpModel = EmployeeRepo.GetById();
 
         //    string Msg = $"Hello {EmpModel?.Name}";
         //    int Temp = 50;
@@ -58,7 +59,7 @@ namespace Shop.Controllers
         #endregion
 
         #region Index
-
+        [Authorize]
         public IActionResult Index()
         {
             var lst = EmployeeRepo.GetAll();

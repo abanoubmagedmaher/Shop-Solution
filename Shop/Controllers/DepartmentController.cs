@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Shop.Models;
@@ -6,6 +7,7 @@ using Shop.Repository;
 
 namespace Shop.Controllers
 {
+    
     public class DepartmentController : Controller
     {
         //ShopContext context= new ShopContext();
@@ -15,6 +17,7 @@ namespace Shop.Controllers
             DepartmentRepo = deptRepo;
         }
         #region Index
+        [Authorize]
         public IActionResult Index()
         {
             //load Employee Count using include 

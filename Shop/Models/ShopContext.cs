@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Shop.Models
 {
-    public class ShopContext:DbContext
+    public class ShopContext:IdentityDbContext<ApplicationUser>
     {
         #region db_Tables
         public DbSet<Employee> Employee { get; set; }

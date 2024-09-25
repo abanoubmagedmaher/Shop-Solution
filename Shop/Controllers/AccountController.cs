@@ -30,6 +30,8 @@ namespace Shop.Controllers
         #region Register
         [Authorize(Roles = "Admin")]
         [HttpPost]
+        [ValidateAntiForgeryToken]//find The Token into request name "_request"
+
         public async Task<IActionResult> SaveRegister(RegisterViewModel UserViewModel)
         {
             if (ModelState.IsValid)
@@ -91,6 +93,7 @@ namespace Shop.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]//find The Token into request name "_request"
         public async Task<IActionResult> SaveLogin(LoginViewModel userViewModel)
         {
             if (ModelState.IsValid)

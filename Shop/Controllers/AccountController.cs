@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Shop.Models;
 using Shop.ViewModel;
+using System.Security.Claims;
 
 namespace Shop.Controllers
 {
@@ -85,8 +86,11 @@ namespace Shop.Controllers
                    bool found =await _userManger.CheckPasswordAsync(appUser, userViewModel.Password);
                     if(found)
                     {
-                        //cookie
-                       await _signInManager.SignInAsync(appUser, userViewModel.RememberMe);
+                        //cookie include By Default {Id,Name,Role}
+                        List<Claim> claims = new List<Claim>();
+                        claims.Add(new Claim("UserAddress", appUser.Address));
+                        await _signInManager.SignInWithClaimsAsync(appUser,userViewModel.RememberMe, claims);
+                        Claim AddressClaim = User.Claims.FirstOrDefault(c => c.Type == "UserAddress");
                         return RedirectToAction("Index", "Department");
                     }
                 }

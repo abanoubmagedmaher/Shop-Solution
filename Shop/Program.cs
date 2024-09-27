@@ -1,8 +1,11 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shop.Filters;
 using Shop.Models;
 using Shop.Repository;
+using System;
 
 namespace Shop
 {
@@ -71,9 +74,22 @@ namespace Shop
             app.UseAuthorization();
             app.UseSession();
 
+
+            #region Custom Route Name Confination Rout 
+            //app.MapControllerRoute("Route1", "R1/{name}/{age:int:range(20,95):max(100):min(20):regex([])}", 
+            //    new { controller="Route",action="Method1" });
+
+            //   app.MapControllerRoute("Route1", "R1/{name}/{age:int}/{color?}",
+            //new { controller = "Route", action = "Method1" });
+            
+            //Default For Microsoft
+            //app.MapControllerRoute("Rout1", "{controller=Route}/{action=Method1}", new {controller="Route" });
+            #endregion
+
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/{id?}"
+            );
 
             app.Run();
         }

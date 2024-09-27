@@ -12,16 +12,19 @@ namespace Shop.Controllers
     {
         //ShopContext context= new ShopContext();
         IDepartmentRepository DepartmentRepo;
-        public DepartmentController(IDepartmentRepository deptRepo)
+        IEmployeeRepository EmployeeRepo;
+
+        public DepartmentController(IDepartmentRepository deptRepo, IEmployeeRepository employeeRepository)
         {
             DepartmentRepo = deptRepo;
+            EmployeeRepo = employeeRepository;
         }
         #region Index
         [Authorize]
         public IActionResult Index()
         {
             //load Employee Count using include 
-            List<Department> departmentLst = DepartmentRepo.GetAll("Employees");
+            List<Department> departmentLst = DepartmentRepo.GetAllWithInclude("Employees");
 
             // List<Department> departmentLst=context.Department.ToList();
             return View("Index", departmentLst);
@@ -104,6 +107,20 @@ namespace Shop.Controllers
 
                 throw;
             }
+        }
+        #endregion
+
+        #region Handel Get all Department With Selcted Eployee Worked in
+        public IActionResult DeptEmps()
+        {
+            var dept = DepartmentRepo.GetAllWithInclude("Employees");
+            return View("DeptEmps",dept);
+        }
+
+        public IActionResult GetEmpsByDeptId(int deptId)
+        {
+            var Emp = EmployeeRepo.GetEmpsByDeptId(deptId);
+            return Json(Emp);
         }
         #endregion
 

@@ -41,6 +41,10 @@ namespace Shop.Repository
             dbcontext.SaveChanges();
         }
 
+        public List<Employee> GetEmpsByDeptId(int deptId)
+        {
+            return dbcontext.Employee.Where(e => e.DepartmentID == deptId).ToList();
+        }
     }
 
 }

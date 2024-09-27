@@ -10,6 +10,11 @@
 									<div class="card-header">
 										<h3 class="card-title">Employee Table</h3>
 									</div>
+
+									<div id="div1" style="border:2px; solid red">
+
+									</div>
+
 									<div class="table-responsive">
 										<table class="table card-table table-vcenter text-nowrap">
 											<thead >
@@ -32,12 +37,18 @@
 													<td>@Emp.Mobile</td>
 													<td>@Emp.JobTitle</td>
 													<td>@Emp.ImageURL</td>
+												    <td>
+														<a href="/Employee/EmpCardPartial/@Emp.Id" onclick="GetEmpData(@Emp.Id)"> i</a>
+													</td>
+													<td>
+														<a href="/Employee/EmpCardPartialToReTurnJson/@Emp.Id" onclick="GetEmpData(@Emp.Id)"> i</a>
+													</td>
 													<td>
 
 														<a href="/Employee/Edit/@Emp.Id">Edit </a>
 													<td>
 														<td>
-														<a href="/Employee/Edit/@Emp.Id">Delete</a>
+														<a href="/Employee/Delete/@Emp.Id">Delete</a>
 													<td>
 												</tr>
 												}
@@ -50,3 +61,14 @@
 						</div>
 						<!-- End Row -->
 
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+	function GetEmpData(EmpId){
+		event.preventDefault();
+		$.ajax({
+			url: "/Employee/EmpCardPartial/"+EmpId, 
+			success: function(result){
+				$("#div1").html(result);
+		}});
+	}
+</script>

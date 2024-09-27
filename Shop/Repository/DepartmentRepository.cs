@@ -26,10 +26,18 @@ namespace Shop.Repository
             dbcontext.Remove(dept);
         }
 
-        public List<Department> GetAll(string include="")
+        public List<Department> GetAll()
         {
+            
+            return dbcontext.Department.ToList();
+        }
+
+        public List<Department> GetAllWithInclude(string include)
+        {
+
             return dbcontext.Department.Include(include).ToList();
         }
+
 
         public Department GetById(int id)
         {

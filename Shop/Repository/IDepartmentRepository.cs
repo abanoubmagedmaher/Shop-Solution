@@ -13,8 +13,10 @@ namespace Shop.Repository
         public void Delete(int id);
       
 
-        public List<Department> GetAll(string include = "");
-       
+        public List<Department> GetAll();
+        public List<Department> GetAllWithInclude(string include);
+
+
         public Department GetById(int id);
        
 

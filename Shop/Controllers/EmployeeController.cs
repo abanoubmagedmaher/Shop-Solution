@@ -108,7 +108,7 @@ namespace Shop.Controllers
             var emp = EmployeeRepo.GetById(id);
             if (emp != null)
             {
-                List<Department> DepartmantList = DepartmentRepo.GetAll("Employees");
+                List<Department> DepartmantList = DepartmentRepo.GetAll();
                 //---------- Create View Model And Auto Mapper
                 EmpWithDeptListViewModel EmpViewModel = new EmpWithDeptListViewModel();
                 EmpViewModel.Id = emp.Id;
@@ -185,8 +185,16 @@ namespace Shop.Controllers
         }
         #endregion
 
-        #region MyRegion
+        #region Partial View With Ajax Call
         public IActionResult EmpCardPartial(int id)
+        {
+            var emp = EmployeeRepo.GetById(id);
+            return PartialView("_EmpCard", emp);
+        }
+        #endregion
+
+        #region  Partial View With Ajax Call And Return Json
+        public IActionResult EmpCardPartialToReTurnJson(int id)
         {
             var emp = EmployeeRepo.GetById(id);
             return PartialView("_EmpCard", emp);

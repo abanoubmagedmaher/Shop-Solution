@@ -16,7 +16,7 @@ namespace Shop.Repository
 
         public Employee GetById(int id);
 
-
+        public List<Employee> GetEmpsByDeptId(int deptId);
         public void Save();
        
     }

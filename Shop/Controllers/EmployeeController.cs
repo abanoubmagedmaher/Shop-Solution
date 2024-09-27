@@ -7,6 +7,7 @@ using Shop.ViewModel;
 
 namespace Shop.Controllers
 {
+  
     public class EmployeeController : Controller
     {
         //ShopContext dbContext= new ShopContext();
@@ -18,24 +19,24 @@ namespace Shop.Controllers
             EmployeeRepo= employeeRepo;
         }
         #region Details
-        //public IActionResult Details(int id)
-        //{
+        public IActionResult Details(int id)
+        {
 
-        //var EmpModel = EmployeeRepo.GetById();
+            var EmpModel = EmployeeRepo.GetById(id);
 
-        //    string Msg = $"Hello {EmpModel?.Name}";
-        //    int Temp = 50;
-        //    List<string> branches = new List<string>();
-        //    branches.Add("Cairo");
-        //    branches.Add("Alex");
-        //    ViewData["Msg"] = Msg;
-        //    ViewData["Temp"] = Temp;
-        //    ViewData["branches"] = branches;
+            string Msg = $"Hello {EmpModel?.Name}";
+            int Temp = 50;
+            List<string> branches = new List<string>();
+            branches.Add("Cairo");
+            branches.Add("Alex");
+            ViewData["Msg"] = Msg;
+            ViewData["Temp"] = Temp;
+            ViewData["branches"] = branches;
 
-        //    ViewBag.color = "red";
+            ViewBag.color = "red";
 
-        //    return View("Details", EmpModel);
-        //}
+            return View("Details", EmpModel);
+        }
 
         //public IActionResult DetailsVM(int id)
         //{
@@ -101,12 +102,13 @@ namespace Shop.Controllers
 
         #region Edit
         // 1-) Handel btn-Edit-Link
+
         public IActionResult Edit(int id)
         {
             var emp = EmployeeRepo.GetById(id);
             if (emp != null)
             {
-                List<Department> DepartmantList = DepartmentRepo.GetAll();
+                List<Department> DepartmantList = DepartmentRepo.GetAll("Employees");
                 //---------- Create View Model And Auto Mapper
                 EmpWithDeptListViewModel EmpViewModel = new EmpWithDeptListViewModel();
                 EmpViewModel.Id = emp.Id;
@@ -158,7 +160,11 @@ namespace Shop.Controllers
         #endregion
 
         #region DeleteEmployee
-
+        public IActionResult Delete(int id)
+        {
+            var emp = EmployeeRepo.GetById(id);
+            return View("Delete", emp);
+        }
         #endregion
 
         #region Search by Name or Mobile or Number or address or .....
@@ -179,6 +185,13 @@ namespace Shop.Controllers
         }
         #endregion
 
+        #region MyRegion
+        public IActionResult EmpCardPartial(int id)
+        {
+            var emp = EmployeeRepo.GetById(id);
+            return PartialView("_EmpCard", emp);
+        }
+        #endregion
 
     }
 }

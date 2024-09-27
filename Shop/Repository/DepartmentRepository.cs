@@ -28,6 +28,7 @@ namespace Shop.Repository
 
         public List<Department> GetAll(string include="")
         {
+            
             return dbcontext.Department.Include(include).ToList();
         }
 

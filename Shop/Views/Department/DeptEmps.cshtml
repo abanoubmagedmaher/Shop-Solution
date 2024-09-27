@@ -6,6 +6,7 @@
 <h1>DeptEmps</h1>
 
 <select id="DeptId" name="DeptId" class="form form-control" onchange="GetEmps()">
+	<option value="">Select Department Name</option>
     @foreach(var deptItem in Model){
     <option value="@deptItem.Id">@deptItem.Name</option>
     }
